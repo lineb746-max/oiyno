@@ -13,8 +13,13 @@
 <script>
 const tg = window.Telegram.WebApp;
 tg.ready();
+tg.expand();
 const AdController = window.Adsgram.init({ blockId: "56451" });
 document.getElementById("watch").onclick = () => {
+  if (!tg.initData) {
+    document.getElementById("status").innerText = "Telegram ичинен ачыңыз";
+    return;
+  }
   AdController.show()
     .then(() => tg.sendData(JSON.stringify({ action: "ad_watched" })))
     .catch(() => {
