@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding:20px">
+<h2>Реклама көрүү</h2>
+<p id="status">Баллдар алуу үчүн басыңыз</p>
+<button id="watch" style="font-size:18px;padding:12px 24px">Реклама көрүү</button>
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+const AdController = window.Adsgram.init({ blockId: "56451" });
+document.getElementById("watch").onclick = () => {
+  AdController.show()
+    .then(() => tg.sendData(JSON.stringify({ action: "ad_watched" })))
+    .catch(() => {
+      document.getElementById("status").innerText = "Реклама толук көрүлгөн жок";
+    });
+};
+</script>
+</body>
+</html>
